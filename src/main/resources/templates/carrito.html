@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Compra de Ticket</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<nav>
+    <a href="/">Inicio</a>
+    <a href="/eventos.html">Eventos</a>
+</nav>
+
+<h2>Resumen de Compra</h2>
+<div id="detalle-compra"></div>
+<button onclick="confirmarCompra()">Confirmar Compra</button>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    fetch(`/api/eventos/${id}`)
+        .then(res => res.json())
+        .then(evento => {
+            document.getElementById("detalle-compra").innerHTML = `
+                <p><strong>Evento:</strong> ${evento.nombre}</p>
+                <p><strong>Descripción:</strong> ${evento.descripcion}</p>
+                <p><strong>Lugar:</strong> ${evento.lugar}</p>
+                <p><strong>Fecha:</strong> ${evento.fecha.replace("T", " ")}</p>
+                <p><strong>Precio:</strong> S/ ${evento.precio.toFixed(2)}</p>
+            `;
+        });
+
+    function confirmarCompra() {
+        alert("¡Compra confirmada!");
+        // Aquí podrías llamar a un endpoint para guardar la venta
+    }
+</script>
+
+</body>
+</html>
