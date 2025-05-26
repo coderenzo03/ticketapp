@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalles del Evento - Venta de Tickets Pe</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+        /* Estilos específicos para detalles del evento - Estilo Joinnus */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background: #000 !important;
+        }
+
+        .event-hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .event-hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .event-hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: #fff;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        }
+
+        .event-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .event-date {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+
+        .event-info-section {
+            padding: 30px 0;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .event-info-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 100px; /* Ajusta esto para que la tarjeta se quede pegada */
+            z-index: 10;
+        }
+
+        .event-info-card .card-header {
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+        }
+
+        .event-details-section h2 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .event-description p {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .map-container {
+            height: 400px; /* Altura fija para el mapa */
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .organizer-info {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .organizer-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .ticket-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ticket-option:last-child {
+            border-bottom: none;
+        }
+
+        .ticket-option-title {
+            font-weight: bold;
+            color: #333;
+            flex-grow: 1;
+        }
+
+        .ticket-option-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-right: 20px;
+        }
+
+        .ticket-option-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-quantity {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-quantity:hover {
+            background-color: #0056b3;
+        }
+
+        .ticket-quantity {
+            margin: 0 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sold-out {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .buy-button-fixed {
+            position: sticky;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 100%; /* Asegura que ocupe todo el ancho disponible */
+            box-sizing: border-box; /* Incluye padding y borde en el ancho */
+        }
+        @media (min-width: 992px) {
+            .buy-button-fixed {
+                position: static; /* Desactiva sticky en desktop si está en la sidebar */
+                padding: 0;
+                background-color: transparent;
+                border-top: none;
+                box-shadow: none;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #212529; /* Dark background */
+            color: #f8f9fa; /* Light text color */
+            padding: 40px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer h5 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer a {
+            color: #adb5bd; /* Lighter text for links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #007bff; /* Blue on hover */
+        }
+
+        .footer .list-unstyled li {
+            margin-bottom: 10px;
+        }
+
+        .footer .social-icons a {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: #adb5bd;
+        }
+
+        .footer .social-icons a:hover {
+            color: #007bff;
+        }
+
+        .footer .form-control {
+            border-color: #495057;
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .footer .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .footer .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #343a40;
+            padding-top: 20px;
+            margin-top: 30px;
+            color: #adb5bd;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Venta de Tickets Pe</a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Eventos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <section class="event-hero">
+        <img
+                id="eventHeroImage"
+                src="/images/placeholder-hero.jpeg"
+                alt="Imagen del Evento"
+                class="event-hero-image"
+        />
+        <div class="event-hero-content">
+            <h1 class="event-title" id="eventTitle">Nombre del Evento</h1>
+            <p class="event-date" id="eventDate">Fecha del Evento</p>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="d-lg-none mb-4">
+                    <h1 class="event-title mb-1" id="eventTitleCard">Nombre del Evento</h1>
+                    <p class="event-date text-muted mb-0" id="eventDateMobile">Fecha del Evento</p>
+                </div>
+
+                <section class="event-info-section">
+                    <h2 class="mb-3">Descripción del Evento</h2>
+                    <div class="event-description">
+                        <p id="eventDescription">
+                            Cargando descripción...
+                        </p>
+                    </div>
+                </section>
+
+                <section class="event-info-section">
+                    <h2 class="mb-3">Información Adicional</h2>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted">Fecha</h6>
+                            <p class="lead" id="eventDateInfo">Cargando fecha...</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted">Hora</h6>
+                            <p class="lead" id="eventTimeInfo">Cargando hora...</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted">Ubicación</h6>
+                            <p class="lead" id="eventLocation">Cargando ubicación...</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted">Lugar</h6>
+                            <p class="lead" id="eventVenueInfo">Cargando lugar...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="event-info-section">
+                    <h2 class="mb-3">Ubicación en el Mapa</h2>
+                    <div class="map-container">
+                        <div id="map"></div>
+                    </div>
+                </section>
+
+                <section class="event-info-section">
+                    <h2 class="mb-3">Organizador</h2>
+                    <div class="organizer-info">
+                        <img id="organizerLogo" src="/static/images/logoss.png" alt="Logo del Organizador" class="organizer-logo" />
+                        <div>
+                            <h5 id="organizerName">Nombre del Organizador</h5>
+                            <p class="text-muted" id="eventOrganizer">Presentado por: Organizador</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card event-info-card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Entradas</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="ticketOptions">
+                            <div class="text-center text-muted">Cargando tickets...</div>
+                        </div>
+                    </div>
+                    <div class="card-footer buy-button-fixed d-lg-block">
+                        <button id="buyNowBtn" class="btn btn-primary btn-lg w-100">
+                            Comprar Entradas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5>Venta de Tickets Pe</h5>
+                <p>Tu plataforma confiable para comprar entradas a los mejores eventos en Perú.</p>
+                <div class="social-icons">
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5>Enlaces Rápidos</h5>
+                <ul class="list-unstyled">
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="#">Eventos</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5>Contáctanos</h5>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-geo-alt-fill me-2"></i>Av. Siempre Viva 123, Lima, Perú</li>
+                    <li><i class="bi bi-envelope-fill me-2"></i>info@ventadetickets.pe</li>
+                    <li><i class="bi bi-phone-fill me-2"></i>+51 987 654 321</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row footer-bottom text-center">
+            <div class="col-12">
+                <p class="mb-0">&copy; 2025 Venta de Tickets Pe. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="tu@ejemplo.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="********" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Recordarme</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p>¿No tienes una cuenta? <a href="#" onclick="hideLoginShowRegister()">Regístrate aquí</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Registrarse</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="registerName" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="registerName" placeholder="Tu Nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="registerEmail" placeholder="tu@ejemplo.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="registerPassword" placeholder="********" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="********" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p>¿Ya tienes una cuenta? <a href="#" onclick="hideRegisterShowLogin()">Inicia sesión aquí</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer onerror="handleMapError()"></script>
+<script>
+    function handleMapError() {
+        console.warn("Error al cargar la API de Google Maps o API Key inválida.");
+        // Si no se carga la API de Google Maps, puedes hacer que initMap() defina un mapa simple
+        // o mostrar un mensaje al usuario.
+        if (typeof initMap === 'function') {
+            initMap(); // Llamará a la versión de fallback de initMap() si la API no se carga
+        } else {
+             // Opcional: Si initMap no está definido, simplemente oculta el contenedor del mapa
+             const mapDiv = document.getElementById('map');
+             if (mapDiv) {
+                 mapDiv.innerHTML = '<div class="alert alert-warning text-center">No se pudo cargar el mapa. Verifica tu conexión o la API Key.</div>';
+                 mapDiv.style.height = 'auto'; // Ajusta la altura para el mensaje
+             }
+        }
+    }
+</script>
+<script src="/js/event_detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard del Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            border-bottom: 2px solid #ddd;
+        }
+        .card {
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .btn-custom {
+            font-size: 1.1rem;
+            padding: 15px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Admin Panel</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="admin_dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="manage_events.html">Gestionar Eventos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="manage_users.html">Gestionar Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.html">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Contenido Principal -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Bienvenido, Administrador</h2>
+    <p class="text-center mb-4">Desde este panel, puedes gestionar eventos y usuarios. Selecciona una opción para continuar.</p>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <!-- Card de Gestionar Eventos -->
+        <div class="col">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Gestionar Eventos</h5>
+                    <p class="card-text">Agrega, edita o elimina eventos de la plataforma.</p>
+                    <a href="manage_events.html" class="btn btn-primary btn-custom">Gestionar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card de Gestionar Usuarios -->
+        <div class="col">
+            <div class="card shadow-sm border-success">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Gestionar Usuarios</h5>
+                    <p class="card-text">Administra los usuarios registrados en la plataforma.</p>
+                    <a href="manage_users.html" class="btn btn-success btn-custom">Gestionar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

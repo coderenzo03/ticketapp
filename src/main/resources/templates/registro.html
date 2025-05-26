@@ -1,31 +1,144 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Venta de Tickets Pe</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
+<body class="bg-light">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg mt-5">
+                <div class="card-header bg-success text-white text-center">
+                    <div class="d-flex align-items-center justify-content-center mb-2">
+                        <div class="logo-circle me-2">
+                            <span class="logo-text">VT</span>
+                        </div>
+                        <h4 class="mb-0">VENTA DE TICKETS Pe</h4>
+                    </div>
+                    <h5 class="mb-0">Crear Cuenta</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Mostrar errores -->
+                    <div th:if="${error}" class="alert alert-danger" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <span th:text="${error}"></span>
+                    </div>
 
-<nav>
-    <a href="/">Inicio</a>
-    <a href="/eventos.html">Eventos</a>
-    <a href="/login.html">Iniciar Sesión</a>
-    <a href="/registro.html">Registrarse</a>
-</nav>
+                    <!-- Formulario de registro -->
+                    <form th:action="@{/auth/registro}" th:object="${usuario}" method="post">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi bi-person me-1"></i>Nombre Completo
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="nombre"
+                                   th:field="*{nombre}"
+                                   placeholder="Tu nombre completo"
+                                   required
+                                   minlength="2"
+                                   maxlength="100">
+                        </div>
 
-<h2>Registrarse</h2>
-<form th:action="@{/auth/registro}" method="post">
-    <label>Nombre:</label>
-    <input type="text" name="nombre" required><br>
-    <label>Email:</label>
-    <input type="email" name="email" required><br>
-    <label>Contraseña:</label>
-    <input type="password" name="password" required><br>
-    <button type="submit">Registrarse</button>
-</form>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                <i class="bi bi-envelope me-1"></i>Email
+                            </label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   th:field="*{email}"
+                                   placeholder="tu@email.com"
+                                   required>
+                        </div>
 
-<p>¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a></p>
+                        <div class="mb-3">
+                            <label for="contrasena" class="form-label">
+                                <i class="bi bi-lock me-1"></i>Contraseña
+                            </label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="contrasena"
+                                   th:field="*{contrasena}"
+                                   placeholder="Mínimo 6 caracteres"
+                                   required
+                                   minlength="6">
+                            <div class="form-text">
+                                <small class="text-muted">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    La contraseña debe tener al menos 6 caracteres
+                                </small>
+                            </div>
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="confirmarContrasena" class="form-label">
+                                <i class="bi bi-lock-fill me-1"></i>Confirmar Contraseña
+                            </label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="confirmarContrasena"
+                                   placeholder="Confirma tu contraseña"
+                                   required
+                                   minlength="6">
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-person-plus me-2"></i>
+                                Crear Cuenta
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p class="mb-0">
+                        ¿Ya tienes cuenta?
+                        <a th:href="@{/auth/login}" class="text-success text-decoration-none">
+                            <strong>Inicia sesión aquí</strong>
+                        </a>
+                    </p>
+                    <hr>
+                    <a th:href="@{/}" class="text-muted text-decoration-none">
+                        <i class="bi bi-arrow-left me-1"></i>
+                        Volver al inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Validación de contraseñas -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const contrasena = document.getElementById('contrasena');
+        const confirmarContrasena = document.getElementById('confirmarContrasena');
+        const form = document.querySelector('form');
+
+        function validarContrasenas() {
+            if (contrasena.value !== confirmarContrasena.value) {
+                confirmarContrasena.setCustomValidity('Las contraseñas no coinciden');
+            } else {
+                confirmarContrasena.setCustomValidity('');
+            }
+        }
+
+        contrasena.addEventListener('input', validarContrasenas);
+        confirmarContrasena.addEventListener('input', validarContrasenas);
+    });
+</script>
 </body>
 </html>
